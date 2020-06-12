@@ -1,0 +1,14 @@
+INSERT INTO `acl_permission` VALUES ('1', '0', '全部数据', 0, NULL, NULL, NULL, NULL, NULL, 0, '2019-11-15 17:13:06', '2019-11-15 17:13:06');
+INSERT INTO `acl_permission` VALUES ('1195350831744782337', '1', '课程管理', 1, NULL, '/edu/course', 'Layout', NULL, NULL, 0, '2019-11-15 22:40:21', '2019-11-15 22:40:21');
+INSERT INTO `acl_permission` VALUES ('1195350919074385921', '1195350831744782337', '课程列表', 1, NULL, 'list', '/edu/course/list', NULL, NULL, 0, '2019-11-15 22:40:42', '2019-11-15 22:40:42');
+INSERT INTO `acl_permission` VALUES ('1195351020463296513', '1195350831744782337', '添加课程', 1, NULL, 'info', '/edu/course/info', NULL, NULL, 0, '2019-11-15 22:41:06', '2019-11-15 22:41:06');
+INSERT INTO `acl_permission` VALUES ('1195351159672246274', '1195350919074385921', '完成发布', 2, 'course.publish', 'publish/:id', '/edu/course/publish', NULL, NULL, 0, '2019-11-15 22:41:40', '2019-11-15 22:44:01');
+INSERT INTO `acl_permission` VALUES ('1195351326706208770', '1195350919074385921', '编辑课程', 2, 'course.update', 'info/:id', '/edu/course/info', NULL, NULL, 0, '2019-11-15 22:42:19', '2019-11-15 22:42:19');
+INSERT INTO `acl_permission` VALUES ('1195351566221938690', '1195350919074385921', '编辑课程大纲', 2, 'chapter.update', 'chapter/:id', '/edu/course/chapter', NULL, NULL, 0, '2019-11-15 22:43:17', '2019-11-15 22:43:17');
+INSERT INTO `acl_permission` VALUES ('2', '1', '用户管理', 1, NULL, '/edu/user', 'Layout', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('3', '2', '用户列表', 1, NULL, 'table', '/edu/user/list', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('4', '2', '添加用户', 1, NULL, 'save', '/edu/user/save', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('5', '3', '编辑用户', 2, NULL, 'edit/:id', '/edu/user/save', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('6', '1', '订阅管理', 1, NULL, '/edu/sub', 'Layout', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('7', '6', '已订阅课程', 1, NULL, 'table', '/edu/sub/list', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `acl_permission` VALUES ('8', '6', '课程管理', 1, NULL, 'all', '/edu/sub/all', NULL, NULL, 0, NULL, NULL);
