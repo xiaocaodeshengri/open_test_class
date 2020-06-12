@@ -12,7 +12,7 @@
 
 系统后端接口部分，使用SpringBoot+SpringCloud进行微服务架构，Gateway阿里巴巴的Nacos等组件搭建了项目的基础环境。
 
-项目中还使用MyBatisPlus进行持久层的操作，使用了OAuth2+JWT实现了分布式的访问，项目中整合了SpringSecurity进行了权限控制。
+项目中还使用MyBatisPlus进行持久层的操作，项目中整合了SpringSecurity进行了权限控制。
 
 
 
