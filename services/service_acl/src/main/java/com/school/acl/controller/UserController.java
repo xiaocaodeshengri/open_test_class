@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("用户管理")
 @RestController
 @RequestMapping("/admin/acl/user")
-@CrossOrigin
+//@CrossOrigin
 public class UserController {
 
 

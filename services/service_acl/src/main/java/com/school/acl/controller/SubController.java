@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("订阅管理")
 @RestController
 @RequestMapping("/admin/acl/sub")
-@CrossOrigin
+//@CrossOrigin
 public class SubController {
 
 
