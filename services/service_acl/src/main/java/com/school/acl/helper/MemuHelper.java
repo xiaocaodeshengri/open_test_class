@@ -29,7 +29,14 @@ public class MemuHelper {
                 JSONObject oneMeun = new JSONObject();
                 oneMeun.put("path", one.getPath());
                 oneMeun.put("component", one.getComponent());
-                oneMeun.put("redirect", "noredirect");
+               if(one.getPath().equals("/course")){
+                   oneMeun.put("redirect", "/course/list");
+               }else if (one.getPath().equals("/user")){
+                   oneMeun.put("redirect", "/user/table");
+               }else if (one.getPath().equals("/sub")){
+                   oneMeun.put("redirect", "/sub/table");
+               }
+
                 oneMeun.put("name", "name_"+one.getId());
                 oneMeun.put("hidden", false);
 

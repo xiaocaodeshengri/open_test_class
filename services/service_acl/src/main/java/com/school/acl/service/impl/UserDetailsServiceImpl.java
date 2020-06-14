@@ -38,7 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 从数据库中取出用户信息
         com.school.acl.entity.pojo.User user = userService.selectByUsername(username);
-
         // 判断用户是否存在
         if (null == user){
             //throw new UsernameNotFoundException("用户名不存在！");

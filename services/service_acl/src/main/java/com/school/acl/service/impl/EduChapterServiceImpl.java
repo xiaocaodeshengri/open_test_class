@@ -6,10 +6,8 @@ import com.school.acl.mapper.EduChapterMapper;
 import com.school.acl.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.common.exception.MyException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -5,6 +5,7 @@ import com.school.acl.entity.pojo.User;
 import com.school.acl.entity.vo.UserQuery;
 import com.school.acl.service.UserService;
 import com.school.common.response.R;
+import com.school.common.security.security.DefaultPasswordEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("用户管理")
 @RestController
 @RequestMapping("/admin/acl/user")
+@CrossOrigin
 public class UserController {
 
 
@@ -47,12 +49,13 @@ public class UserController {
      */
     @PostMapping("addUser")
     public R addTeacher(@RequestBody User user) {
+        user.setPassword(new DefaultPasswordEncoder().encode("123456"));
+        System.out.println(user.getPassword());
+        System.out.println(new DefaultPasswordEncoder().encode("Admin"));
         boolean save = userService.save(user);
-        if(save) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
+        userService.addMenu(user);
+        return R.ok();
+
     }
 
     /**

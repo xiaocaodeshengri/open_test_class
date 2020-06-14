@@ -3,11 +3,14 @@ package com.school.acl.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.school.acl.entity.pojo.User;
+import com.school.acl.entity.pojo.UserRole;
 import com.school.acl.entity.vo.UserQuery;
 import com.school.acl.mapper.UserMapper;
+import com.school.acl.mapper.UserRoleMapper;
 import com.school.acl.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.common.response.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +26,9 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Autowired
+    private UserRoleMapper userRoloMapper;
 
     @Override
     public User selectByUsername(String username) {
@@ -56,5 +62,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         long total = pageTeacher.getTotal();//总记录数
         List<User> records = pageTeacher.getRecords(); //数据list集合
         return R.ok().data("total",total).data("rows",records);
+    }
+
+    @Override
+    public void addMenu(User user) {
+        if(user.getType()== 2){
+            UserRole userRole = new UserRole();
+            userRole.setRoleId("3");
+            userRole.setUserId(user.getId());
+            userRoloMapper.insert(userRole);
+        }else {
+            UserRole userRole = new UserRole();
+            userRole.setRoleId("2");
+            userRole.setUserId(user.getId());
+            userRoloMapper.insert(userRole);
+        }
     }
 }

@@ -5,16 +5,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mysql.cj.Query;
 import com.school.acl.entity.pojo.Permission;
 import com.school.acl.entity.pojo.RolePermission;
 import com.school.acl.entity.pojo.User;
 import com.school.acl.helper.MemuHelper;
 import com.school.acl.helper.PermissionHelper;
 import com.school.acl.mapper.PermissionMapper;
+import com.school.acl.mapper.RolePermissionMapper;
 import com.school.acl.service.PermissionService;
 import com.school.acl.service.RolePermissionService;
+import com.school.acl.service.UserRoleService;
 import com.school.acl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -37,7 +41,11 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RolePermissionMapper rolePermissionMapper;
 
+    @Autowired
+    private PermissionMapper permissionMapper;
 
 
     //根据用户id获取用户菜单
@@ -65,16 +73,23 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Override
     public List<JSONObject> selectPermissionByUserId(String userId) {
         List<Permission> selectPermissionList = null;
-        if(this.isSysAdmin(userId)) {
-            //如果是超级管理员，获取所有菜单
-            selectPermissionList = baseMapper.selectList(null);
-        } else {
-            selectPermissionList = baseMapper.selectPermissionByUserId(userId);
-        }
-
+        User byId = userService.getById(userId);
+        QueryWrapper<RolePermission> role_is = new QueryWrapper<RolePermission>();
+        role_is.eq("role_id", byId.getType()+1);
+        List<RolePermission> rolelist = rolePermissionMapper.selectList(role_is);
+        selectPermissionList = transfer4Per(rolelist);
         List<Permission> permissionList = PermissionHelper.bulid(selectPermissionList);
         List<JSONObject> result = MemuHelper.bulid(permissionList);
         return result;
+    }
+
+    private List<Permission> transfer4Per(List<RolePermission> rolelist) {
+        List<Permission> list = new ArrayList<>();
+        for (RolePermission item :rolelist){
+            Permission permission = permissionMapper.selectById(item.getPermissionId());
+            list.add(permission);
+        }
+        return list;
     }
 
     /**
@@ -84,7 +99,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
      */
     private boolean isSysAdmin(String userId) {
         User user = userService.getById(userId);
-
         if(null != user && "admin".equals(user.getUsername())) {
             return true;
         }

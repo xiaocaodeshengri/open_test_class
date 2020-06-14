@@ -18,4 +18,6 @@ public interface UserService extends IService<User> {
     User selectByUsername(String username);
    //带条件查询用户信息
     R pageUserCondition(long current, long limit, UserQuery query);
+    //添加菜单
+    void addMenu(User user);
 }
